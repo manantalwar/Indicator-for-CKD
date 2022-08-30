@@ -1,2 +1,17 @@
-# CKD
-Project
+# Indicator for Chronic Kidney Disease
+This novel research based project was implemented as a final project for CS590W: Health Informatics and Data Science.
+
+Background
+Medical literature has established that chronic kidney disease is considered to be a multifactorial disease related to sex, age, obesity and smoking, hypertension and cardiovascular diseases and also to genetic and environmental factors. Type-1 and Type-2 diabetes, high blood pressure, the presence of many different heavy metals either in blood or in urine and more recently even demographic factors such as race are known to be risk factors for acute as well as chronic kidney disease. While widely recognized, this risk has been studied in very limited and controlled settings. [3] 
+
+Objectives
+The aim of this study is to quantify a patient’s kidney disease risk based on a combination of physiological factors. These include, but are not limited to, heavy metal presence in blood and urine, albumin-to-creatinine ratio (ACR), glomerular filtration rate (GFR), blood sugar levels, and prior history of cardiovascular disease as input variables. 
+
+Dataset
+We intend to use the NHANES [1] dataset for multiple years for our research (1999 onwards). ACR can be sourced directly from the dataset, whereas GFR is calculated using the CKD-EPI equation[2] using age, gender, whether black or not, and the serum creatinine measurement (which must be calibrated by normalization for certain years) from the NHANES dataset. However, it may be noted that the creatinine data is available for correspondents >=20 years of age. Hence, our analysis will be limited to correspondents whose age >= 20 years. Other input variables such as Hb1ac, cholesterol, blood pressure, presence of heavy metals in urine and blood can also be directly sourced from the NHANES dataset. For most of the years during the time period chosen, the Questionnaire data includes Kidney Conditions Questionnaire. We are primarily interested in the variable KIQ020/022 (having said ‘yes’ to having a kidney disease) from this dataset. On an average, there are 150 correspondents with a ‘yes’ for this variable so across the years, we can build a dataset at least in hundreds and even in thousands to validate our sample size. 
+
+Methods
+With the dataset in consideration, we intend to code a supervised regression model that analyzes the statistical significance of each of the input variable to a self-reported diagnosis of CKD (a set of weights for a positive diagnosis, another set of weights for a negative diagnosis) and then code a second probabilistic model (a classifier) that learns the weights from the first model, computes the probability of CKD and returns both a diagnosis as well as the probabilistic risk score. The input for the second model is the output derived from the first model which will take into consideration only those features that lead to a maximal area under the AUC curve. For validation and evaluation, we plan to segment the data into training, validation, and test sets with a 70-15-15 split. We will seed our model to use the laboratory standard thresholds to classify into categorical labels but eventually expect the model to learn its own weights. We intend to use p-values, R^2, precision, recall, TPR, FPR and correlation coefficients as evaluation metrics. 
+
+Expected Results
+We expect to observe a high risk score associated with Type-1 and Type-2 diabetes, high cholesterol, high blood pressure, obesity, smoking and cardiovascular diseases. We expect to observe the role of presence of metals/metalloids in the blood or urine in enhancing the risk of CKD. Based on medical literature, we also expect to see higher ACR and lower GFR levels strongly correlated with a higher risk score.
